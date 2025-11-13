@@ -2,6 +2,7 @@ import HeroSection from "./components/HeroSection";
 import Header from "./components/Header";
 import About from "./components/About";
 import Footer from "./components/Footer";
+import Features from "./components/Features";
 
 export default function Page() {
   return (
@@ -10,7 +11,7 @@ export default function Page() {
       <main>
         <HeroSection />
         <About />
-        {/* add other sections/components below as needed */}
+        <Features />
       </main>
       <Footer/>
     </>

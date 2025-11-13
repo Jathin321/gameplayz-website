@@ -1,0 +1,688 @@
+.features {
+  position: relative;
+  min-height: 100vh;
+  padding: 6rem 2rem;
+  background: linear-gradient(180deg, 
+    #0f0520 0%,
+    #0a0a0a 50%,
+    #1a0a1a 100%
+  );
+  overflow: hidden;
+}
+
+.features::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(161, 67, 244, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(225, 0, 255, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(161, 67, 244, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  max-width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: -5rem;
+}
+
+.title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  letter-spacing: 3px;
+  line-height: 1.1;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin: 0;
+  background: linear-gradient(135deg, #ffffff 0%, #A143F4 50%, #e100ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+.carouselWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: -8rem;
+}
+
+.carouselContainer {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: 600px;
+  perspective: 2000px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  position: absolute;
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(161, 67, 244, 0.2);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 380px;
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+  cursor: pointer;
+  transform-style: preserve-3d;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    var(--feature-color, #A143F4) 0%, 
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* Arc positioning for cards */
+.card.active {
+  transform: 
+    translateX(0) 
+    translateY(0)
+    translateZ(100px)
+    rotateY(0deg) 
+    scale(1.1);
+  opacity: 1;
+  z-index: 5;
+  pointer-events: auto;
+}
+
+.card.active::before {
+  opacity: 1;
+}
+
+.card.next {
+  transform: 
+    translateX(350px) 
+    translateY(-80px)
+    translateZ(-100px)
+    rotateY(-40deg) 
+    scale(0.85);
+  opacity: 0.7;
+  z-index: 4;
+  pointer-events: auto;
+}
+
+.card.prev {
+  transform: 
+    translateX(-350px) 
+    translateY(-80px)
+    translateZ(-100px)
+    rotateY(40deg) 
+    scale(0.85);
+  opacity: 0.7;
+  z-index: 4;
+  pointer-events: auto;
+}
+
+/* Additional arc positions */
+.card.farNext {
+  transform: 
+    translateX(550px) 
+    translateY(-140px)
+    translateZ(-250px)
+    rotateY(-55deg) 
+    scale(0.65);
+  opacity: 0.4;
+  z-index: 3;
+  pointer-events: auto;
+}
+
+.card.farPrev {
+  transform: 
+    translateX(-550px) 
+    translateY(-140px)
+    translateZ(-250px)
+    rotateY(55deg) 
+    scale(0.65);
+  opacity: 0.4;
+  z-index: 3;
+  pointer-events: auto;
+}
+
+.card.hidden {
+  transform: 
+    translateX(0) 
+    translateY(-200px)
+    translateZ(-500px)
+    rotateY(0deg)
+    scale(0.3);
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.card.active:hover {
+  transform: 
+    translateX(0) 
+    translateY(-10px)
+    translateZ(130px)
+    rotateY(0deg) 
+    scale(1.15);
+  border-color: var(--feature-color, #A143F4);
+  box-shadow: 
+    0 25px 70px rgba(0, 0, 0, 0.6),
+    0 0 60px rgba(161, 67, 244, 0.5);
+}
+
+.card.next:hover {
+  opacity: 0.85;
+  transform: 
+    translateX(350px) 
+    translateY(-90px)
+    translateZ(-80px)
+    rotateY(-38deg) 
+    scale(0.9);
+}
+
+.card.prev:hover {
+  opacity: 0.85;
+  transform: 
+    translateX(-350px) 
+    translateY(-90px)
+    translateZ(-80px)
+    rotateY(38deg) 
+    scale(0.9);
+}
+
+.card.farNext:hover,
+.card.farPrev:hover {
+  opacity: 0.6;
+}
+
+.cardGlow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, 
+    var(--feature-color, #A143F4) 0%, 
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.card.active:hover .cardGlow {
+  opacity: 0.25;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  background: rgba(161, 67, 244, 0.1);
+  border: 2px solid rgba(161, 67, 244, 0.3);
+  border-radius: 12px;
+  transition: all 0.4s ease;
+}
+
+.card.active:hover .iconWrapper {
+  background: rgba(161, 67, 244, 0.2);
+  border-color: var(--feature-color, #A143F4);
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 4px 16px rgba(161, 67, 244, 0.3);
+}
+
+.icon {
+  font-size: 2rem;
+  transition: filter 0.4s ease;
+}
+
+.card.active .icon {
+  filter: grayscale(0);
+}
+
+.card.next .icon,
+.card.prev .icon,
+.card.farNext .icon,
+.card.farPrev .icon {
+  filter: grayscale(0.6);
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #ffffff;
+  margin: 0;
+  transition: color 0.4s ease;
+}
+
+.card.active:hover .cardTitle {
+  color: var(--feature-color, #A143F4);
+}
+
+.cardDescription {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+.navButton {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(161, 67, 244, 0.2);
+  border: 2px solid rgba(161, 67, 244, 0.4);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.navButton:hover:not(:disabled) {
+  background: rgba(161, 67, 244, 0.8);
+  border-color: rgba(225, 0, 255, 0.8);
+  transform: scale(1.1);
+  box-shadow: 0 6px 30px rgba(161, 67, 244, 0.6);
+}
+
+.navButton:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.navButton:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.indicators {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(161, 67, 244, 0.3);
+  border: 2px solid rgba(161, 67, 244, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.indicator:hover {
+  background: rgba(161, 67, 244, 0.5);
+  transform: scale(1.2);
+}
+
+.indicatorActive {
+  background: rgba(161, 67, 244, 1);
+  border-color: rgba(225, 0, 255, 1);
+  box-shadow: 0 0 10px rgba(161, 67, 244, 0.8);
+  transform: scale(1.3);
+}
+
+.scrollHint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  opacity: 0.6;
+}
+
+.hintText {
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .carouselContainer {
+    max-width: 700px;
+    height: 550px;
+  }
+
+  .card {
+    max-width: 340px;
+  }
+
+  .card.next {
+    transform: 
+      translateX(280px) 
+      translateY(-60px)
+      translateZ(-80px)
+      rotateY(-35deg) 
+      scale(0.8);
+  }
+
+  .card.prev {
+    transform: 
+      translateX(-280px) 
+      translateY(-60px)
+      translateZ(-80px)
+      rotateY(35deg) 
+      scale(0.8);
+  }
+
+  .card.farNext {
+    transform: 
+      translateX(450px) 
+      translateY(-120px)
+      translateZ(-200px)
+      rotateY(-50deg) 
+      scale(0.6);
+  }
+
+  .card.farPrev {
+    transform: 
+      translateX(-450px) 
+      translateY(-120px)
+      translateZ(-200px)
+      rotateY(50deg) 
+      scale(0.6);
+  }
+
+  .carouselWrapper {
+    margin-bottom: -1.5rem;
+  }
+  
+  .indicators {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .features {
+    padding: 4rem 1rem 3rem;
+    min-height: auto;
+  }
+
+  .container {
+    gap: 2rem;
+  }
+
+  .carouselWrapper {
+    gap: 0;
+    margin-bottom: -6rem;
+  }
+
+  .carouselContainer {
+    max-width: 100%;
+    height: 500px;
+    padding: 0 1rem;
+  }
+
+  .card {
+    max-width: 280px;
+    padding: 2rem 1.5rem;
+  }
+
+  .card.active {
+    transform: 
+      translateX(0) 
+      translateY(0)
+      translateZ(80px)
+      rotateY(0deg) 
+      scale(1);
+  }
+
+  .card.next {
+    transform: 
+      translateX(180px) 
+      translateY(-50px)
+      translateZ(-60px)
+      rotateY(-35deg) 
+      scale(0.7);
+  }
+
+  .card.prev {
+    transform: 
+      translateX(-180px) 
+      translateY(-50px)
+      translateZ(-60px)
+      rotateY(35deg) 
+      scale(0.7);
+  }
+
+  .card.farNext {
+    transform: 
+      translateX(300px) 
+      translateY(-100px)
+      translateZ(-150px)
+      rotateY(-50deg) 
+      scale(0.5);
+    opacity: 0.3;
+  }
+
+  .card.farPrev {
+    transform: 
+      translateX(-300px) 
+      translateY(-100px)
+      translateZ(-150px)
+      rotateY(50deg) 
+      scale(0.5);
+    opacity: 0.3;
+  }
+
+  .navButton {
+    display: none;
+  }
+
+  .title {
+    font-size: clamp(2rem, 6vw, 3rem);
+  }
+
+  .subtitle {
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  }
+
+  .indicators {
+    margin-top: 0;
+  }
+
+  .scrollHint {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  .hintText {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .features {
+    padding: 3.5rem 1rem 2rem;
+  }
+
+  .container {
+    gap: 1.5rem;
+  }
+
+  .carouselContainer {
+    max-width: 100%;
+    height: 480px;
+    padding: 0 0.5rem;
+  }
+
+  .card {
+    max-width: 260px;
+    padding: 1.75rem 1.25rem;
+  }
+
+  .card.active {
+    transform: 
+      translateX(0) 
+      translateY(0)
+      translateZ(60px)
+      rotateY(0deg) 
+      scale(0.95);
+  }
+
+  .card.next {
+    transform: 
+      translateX(140px) 
+      translateY(-40px)
+      translateZ(-50px)
+      rotateY(-30deg) 
+      scale(0.65);
+    opacity: 0.6;
+  }
+
+  .card.prev {
+    transform: 
+      translateX(-140px) 
+      translateY(-40px)
+      translateZ(-50px)
+      rotateY(30deg) 
+      scale(0.65);
+    opacity: 0.6;
+  }
+
+  .card.farNext,
+  .card.farPrev {
+    transform: 
+      translateX(0) 
+      translateY(-150px)
+      translateZ(-300px)
+      rotateY(0deg)
+      scale(0.3);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .iconWrapper {
+    width: 60px;
+    height: 60px;
+  }
+
+  .icon {
+    font-size: 1.75rem;
+  }
+
+  .cardTitle {
+    font-size: 1.25rem;
+  }
+
+  .cardDescription {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .indicators {
+    gap: 0.75rem;
+    margin-top: 0;
+  }
+
+  .scrollHint {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .features {
+    padding: 3rem 1rem 1.5rem;
+  }
+
+  .container {
+    gap: 1.25rem;
+  }
+
+  .carouselContainer {
+    height: 460px;
+  }
+
+  .card {
+    max-width: 240px;
+    padding: 1.5rem 1rem;
+  }
+
+  .card.active {
+    transform: 
+      translateX(0) 
+      translateY(0)
+      translateZ(40px)
+      rotateY(0deg) 
+      scale(0.9);
+  }
+
+  .card.next {
+    transform: 
+      translateX(110px) 
+      translateY(-35px)
+      translateZ(-40px)
+      rotateY(-25deg) 
+      scale(0.6);
+  }
+
+  .card.prev {
+    transform: 
+      translateX(-110px) 
+      translateY(-35px)
+      translateZ(-40px)
+      rotateY(25deg) 
+      scale(0.6);
+  }
+
+  .cardTitle {
+    font-size: 1.15rem;
+  }
+
+  .cardDescription {
+    font-size: 0.85rem;
+  }
+}
+
+
+
