@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -17,11 +19,23 @@ body {
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  min-height: 100%;
+  color: #ffffff;
+  background-attachment: fixed;
+  font-family: "Rajdhani", sans-serif, system-ui;
+  font-weight: 700; /* Bold */
+  font-style: normal;
+  letter-spacing: 3px; /* 3px letter spacing */
+  line-height: 1; /* 100 line height */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Ensure main content doesn't block the gradient (transparent backgrounds by default) */
+main, .app-root {
+  background: transparent;
 }
 
 * {

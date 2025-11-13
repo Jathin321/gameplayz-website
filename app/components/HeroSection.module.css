@@ -1,0 +1,117 @@
+/* background uses public/heroSectionBackground.png (move image to public/) */
+.hero {
+  position: relative;
+  min-height: 100vh; /* increased to full viewport height */
+  display: flex;
+  align-items: flex-end; /* align content to bottom */
+  justify-content: center;
+  background-image: url("/heroSectionBackground.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.dim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 1)
+  ); /* adjusted gradient for bottom emphasis */
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  padding: 3rem 2rem; /* increased bottom padding */
+  text-align: center;
+  width: 100%;
+  max-width: 1100px;
+  margin-bottom: 4rem; /* space from absolute bottom */
+}
+
+.mainHeading {
+  margin: 0 0 1rem;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: clamp(3rem, 8vw, 6rem);
+  letter-spacing: -0.03em;
+}
+
+.quote {
+  margin: 0;
+  color: #ffffff;
+  font-weight: 700;
+  line-height: 1.02;
+  font-size: clamp(2rem, 6.5vw, 4.8rem);
+  letter-spacing: -0.02em;
+  text-shadow: 0 8px 30px rgba(0, 0, 0, 0.65);
+}
+
+.highlight {
+  color: #a143f4;
+  display: inline-block;
+}
+
+.cta {
+  margin: 1.5rem 0 0.75rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.scrollIndicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.arrow {
+  color: #a143f4;
+  filter: drop-shadow(0 2px 8px rgba(161, 67, 244, 0.4));
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+/* responsive - show more of the image on mobile by adjusting background */
+@media (max-width: 520px) {
+  .hero {
+    min-height: 85vh;
+  }
+  .mainHeading {
+    font-size: clamp(2rem, 10vw, 3.5rem);
+    margin-bottom: 0.75rem;
+  }
+  .quote {
+    font-size: clamp(1.6rem, 8.5vw, 2.6rem);
+  }
+  .cta {
+    font-size: clamp(0.85rem, 2.5vw, 1rem);
+    margin-top: 1rem;
+  }
+  .inner {
+    padding: 2rem 1.25rem;
+    margin-bottom: 2rem;
+  }
+}
+
+/* Alternative: for tablets and smaller devices, adjust background-size gradually */
+@media (max-width: 768px) and (min-width: 521px) {
+  .hero {
+    background-size: 150%;
+  }
+}
