@@ -20,7 +20,7 @@ export default function InitialLoader() {
       console.warn("window flag unavailable, continuing with animation");
     }
 
-    const VERT_MS = 700;
+    const VERT_MS = 1500; // increased for 2 spins
     const GAP_MS = 120;
     const HORIZ_MS = 800;
     const FADE_MS = 500;
@@ -28,7 +28,7 @@ export default function InitialLoader() {
 
     const revealTimer = setTimeout(() => setReveal(true), 50);
     const fadeTimer = setTimeout(() => setFadeOut(true), TOTAL_MS);
-    const hideTimer = setTimeout(() => setShow(false), 4000);
+    const hideTimer = setTimeout(() => setShow(false), TOTAL_MS + FADE_MS);
 
     return () => {
       clearTimeout(revealTimer);
@@ -80,8 +80,11 @@ export default function InitialLoader() {
             transform: translate(-50%, 150%) rotate(0deg) scale(0.85);
             filter: drop-shadow(0 0 0px rgba(161, 67, 244, 0));
           }
-          50% {
+          30% {
             filter: drop-shadow(0 0 18px rgba(161, 67, 244, 0.7));
+          }
+          60% {
+            filter: drop-shadow(0 0 20px rgba(161, 67, 244, 0.8));
           }
           100% {
             transform: translate(-50%, -50%) rotate(360deg) scale(1);
@@ -111,9 +114,17 @@ export default function InitialLoader() {
           }
         }
 
+        @keyframes fadeInWrapper {
+          to {
+            opacity: 1;
+          }
+        }
+
         .wrapper {
           position: relative;
           display: inline-block;
+          animation: fadeInWrapper 200ms ease-out forwards;
+          animation-delay: 150ms;
         }
 
         .g-outer {
@@ -123,7 +134,7 @@ export default function InitialLoader() {
           transform: translate(-50%, 150%) rotate(0deg) scale(0.85);
           transform-origin: center center;
           will-change: transform, filter;
-          animation: moveUpAndSpin 750ms cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
+          animation: moveUpAndSpin 1500ms ease-out forwards;
         }
 
         .g-inner {
@@ -131,7 +142,7 @@ export default function InitialLoader() {
           transform: translateX(0);
           will-change: transform;
           animation: slideLeft 850ms cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-          animation-delay: 870ms;
+          animation-delay: 1620ms; /* starts after 2 spins complete */
         }
 
         .g-letter {
@@ -152,18 +163,20 @@ export default function InitialLoader() {
           animation: fadeInLetter 450ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
 
-        .reveal .a  { animation-delay: 850ms; }
-        .reveal .m  { animation-delay: 950ms; }
-        .reveal .e  { animation-delay: 1050ms; }
-        .reveal .p  { animation-delay: 1150ms; }
-        .reveal .l  { animation-delay: 1250ms; }
-        .reveal .a2 { animation-delay: 1350ms; }
-        .reveal .y  { animation-delay: 1450ms; }
-        .reveal .z  { animation-delay: 1550ms; }
-
+        .reveal .a  { animation-delay: 1600ms; }
+        .reveal .m  { animation-delay: 1700ms; }
+        .reveal .e  { animation-delay: 1800ms; }
+        .reveal .p  { animation-delay: 1900ms; }
+        .reveal .l  { animation-delay: 2000ms; }
+        .reveal .a2 { animation-delay: 2100ms; }
+        .reveal .y  { animation-delay: 2200ms; }
+        .reveal .z  { animation-delay: 2300ms; }
       `}</style>
 
-      <div className={`wrapper ${reveal ? "reveal" : ""} rubik-80s-fade`}>
+      <div
+        className={`wrapper ${reveal ? "reveal" : ""} rubik-80s-fade`}
+        style={{ opacity: 0 }}
+      >
         <span className="g-outer" aria-hidden="true">
           <span className="g-inner">
             <span className="g-letter">G</span>

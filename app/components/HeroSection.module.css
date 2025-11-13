@@ -1,7 +1,7 @@
 /* background uses public/heroSectionBackground.png (move image to public/) */
 .hero {
   position: relative;
-  min-height: 100vh; /* increased to full viewport height */
+  min-height: 100vh; /* full viewport height */
   display: flex;
   align-items: flex-end; /* align content to bottom */
   justify-content: center;
@@ -87,10 +87,11 @@
   }
 }
 
-/* responsive - show more of the image on mobile by adjusting background */
+/* responsive - keep 100vh on mobile */
 @media (max-width: 520px) {
   .hero {
-    min-height: 85vh;
+    min-height: 100vh;
+    align-items: center; /* center content vertically on mobile */
   }
   .mainHeading {
     font-size: clamp(2rem, 10vw, 3.5rem);
@@ -105,7 +106,8 @@
   }
   .inner {
     padding: 2rem 1.25rem;
-    margin-bottom: 2rem;
+    margin-bottom: 0; /* remove bottom margin on mobile */
+    transform: translateY(80%); /* move content up slightly */
   }
 }
 
