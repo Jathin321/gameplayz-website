@@ -71,6 +71,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
   animation: float 6s ease-in-out infinite;
 }
 
@@ -113,6 +114,7 @@
 
   .imageWrapper {
     order: 1;
+    width: 100%;
   }
 
   .heading {
@@ -124,14 +126,15 @@
   }
 
   .image {
-    height: 500px;
+    height: 400px;
+    max-width: 500px;
+    width: 100%;
   }
 }
 
 @media (max-width: 520px) {
   .about {
     padding: 4rem 1.5rem;
-    min-height: auto;
   }
 
   .container {
@@ -139,12 +142,22 @@
   }
 
   .imageWrapper {
-    max-width: 400px;
+    width: 100%;
+    max-width: 100%;
     margin: 0 auto;
   }
 
   .image {
-    height: 400px;
-    max-width: 400px;
+    height: 300px;
+    max-width: 100%;
+    width: 100%;
+    min-height: 250px;
+  }
+}
+
+@media (max-width: 380px) {
+  .image {
+    height: 250px;
+    min-height: 200px;
   }
 }
