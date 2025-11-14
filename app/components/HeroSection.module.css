@@ -107,7 +107,7 @@
   .inner {
     padding: 2rem 1.25rem;
     margin-bottom: 0; /* remove bottom margin on mobile */
-    transform: translateY(80%); /* move content up slightly */
+    transform: translateY(50%); /* move content up slightly */
   }
 }
 

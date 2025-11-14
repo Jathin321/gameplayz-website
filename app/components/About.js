@@ -13,14 +13,7 @@ export default function About() {
         </div>
 
         <div className={styles.imageWrapper}>
-          <Image
-            src="/aboutImage.png"
-            alt="Gameplayz platform features"
-            width={600}
-            height={600}
-            className={styles.image}
-            priority
-          />
+          <div className={styles.image}></div>
         </div>
       </div>
     </section>
