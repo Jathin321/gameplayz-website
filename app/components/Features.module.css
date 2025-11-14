@@ -339,6 +339,8 @@
 }
 
 .indicators {
+  position: relative;
+  z-index: 6;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -370,6 +372,8 @@
 }
 
 .scrollHint {
+  position: relative;
+  z-index: 6;
   display: flex;
   align-items: center;
   justify-content: center;
