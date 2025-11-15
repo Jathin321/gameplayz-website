@@ -6,6 +6,9 @@ import styles from "./Features.module.css";
 export default function Features() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+  const containerRef = useRef(null);
 
   const features = [
     {
@@ -79,6 +82,13 @@ export default function Features() {
     setTimeout(() => setIsAnimating(false), 600);
   };
 
+  const goToSlide = (index) => {
+    if (isAnimating || index === activeIndex) return;
+    setIsAnimating(true);
+    setActiveIndex(index);
+    setTimeout(() => setIsAnimating(false), 600);
+  };
+
   const getCardPosition = (index) => {
     const diff = index - activeIndex;
     const total = features.length;
@@ -90,6 +100,31 @@ export default function Features() {
     if (normalizedDiff === total - 1) return 'prev';
     if (normalizedDiff === total - 2) return 'farPrev';
     return 'hidden';
+  };
+
+  // Touch handlers for swipe
+  const handleTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      navigate('next');
+    }
+    if (isRightSwipe) {
+      navigate('prev');
+    }
   };
 
   useEffect(() => {
@@ -124,7 +159,13 @@ export default function Features() {
             </svg>
           </button>
 
-          <div className={styles.carouselContainer}>
+          <div 
+            ref={containerRef}
+            className={styles.carouselContainer}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             {features.map((feature, index) => {
               const position = getCardPosition(index);
               
@@ -166,14 +207,20 @@ export default function Features() {
             <button
               key={index}
               className={`${styles.indicator} ${index === activeIndex ? styles.indicatorActive : ''}`}
-              onClick={() => !isAnimating && setActiveIndex(index)}
+              onClick={() => goToSlide(index)}
               aria-label={`Go to feature ${index + 1}`}
             />
           ))}
         </div>
 
-        <div className={styles.scrollHint}>
-          <span className={styles.hintText}>Use arrow keys or click to navigate</span>
+        <div className={styles.swipeHint}>
+          <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path d="M15 18l-6-6 6-6M9 18l-6-6 6-6"/>
+          </svg>
+          <span className={styles.hintText}>Swipe to navigate</span>
+          <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path d="M9 6l6 6-6 6M15 6l6 6-6 6"/>
+          </svg>
         </div>
       </div>
     </section>

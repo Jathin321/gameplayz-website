@@ -80,6 +80,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  touch-action: pan-y;
+  user-select: none;
 }
 
 .card {
@@ -382,6 +384,56 @@
   opacity: 0.6;
 }
 
+.swipeHint {
+  position: relative;
+  z-index: 6;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  opacity: 0.6;
+}
+
+.swipeHint svg {
+  color: #A143F4;
+  animation: swipeAnimation 2s ease-in-out infinite;
+}
+
+.swipeHint svg:first-child {
+  animation-delay: 0s;
+}
+
+.swipeHint svg:last-child {
+  animation-delay: 1s;
+}
+
+@keyframes swipeAnimation {
+  0%, 100% {
+    transform: translateX(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateX(-5px);
+    opacity: 1;
+  }
+}
+
+.swipeHint svg:last-child {
+  animation-name: swipeAnimationRight;
+}
+
+@keyframes swipeAnimationRight {
+  0%, 100% {
+    transform: translateX(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateX(5px);
+    opacity: 1;
+  }
+}
+
 .hintText {
   font-size: 0.9rem;
   font-weight: 500;
@@ -464,6 +516,12 @@
     max-width: 100%;
     height: 500px;
     padding: 0 1rem;
+    touch-action: pan-y;
+    cursor: grab;
+  }
+
+  .carouselContainer:active {
+    cursor: grabbing;
   }
 
   .card {
@@ -535,12 +593,11 @@
   }
 
   .scrollHint {
-    margin-top: 0.5rem;
-    margin-bottom: 0;
+    display: none;
   }
 
-  .hintText {
-    font-size: 0.85rem;
+  .swipeHint {
+    display: flex;
   }
 }
 
@@ -629,6 +686,11 @@
   }
 
   .scrollHint {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  .swipeHint {
     margin-top: 0.5rem;
     margin-bottom: 0;
   }
